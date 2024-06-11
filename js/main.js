@@ -40,10 +40,14 @@ let material = new THREE.MeshBasicMaterial({color: 0xff0000}) // corlor of objec
 let cube = new THREE.Mesh(geometry, material); // create cube with geometry and material
 scene.add(cube);
 
+// load floor texture
+const textureLoader = new THREE.TextureLoader().load('./img/Floor.jpg');
+
 // create the floor plane
-let planeGeometry = new THREE.PlaneGeometry(20, 20);
+let planeGeometry = new THREE.PLane
 let planeMaterial = new THREE.MeshBasicMaterial( {
-    color: 0xffff00,
+    //color: 0xffff00,
+    map: textureLoader,
     side: THREE.DoubleSide // render both side of plane
 } );
 let plane = new THREE.Mesh(planeGeometry, planeMaterial);
