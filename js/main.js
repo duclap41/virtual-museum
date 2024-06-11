@@ -37,8 +37,17 @@ scene.add(sunLight);
 
 let geometry = new THREE.BoxGeometry(1, 1, 1); // a box shape
 let material = new THREE.MeshBasicMaterial({color: 0xff0000}) // corlor of object
-let mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+let cube = new THREE.Mesh(geometry, material); // create cube with geometry and material
+scene.add(cube);
+
+// create the floor plane
+let planeGeometry = new THREE.PlaneGeometry(20, 20);
+let planeMaterial = new THREE.MeshBasicMaterial( {
+    color: 0xffff00,
+    side: THREE.DoubleSide // render both side of plane
+} );
+let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+scene.add(plane);
 
 // Controls
     // Evemt listener for when pressing keys
@@ -66,8 +75,8 @@ function onKeyDown(event) {
 
 // animation
 let renderLoop = function() {
-    mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.01;
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
     // mesh.rotateX(0.01);
     // mesh.rotateY(0.01);
     renderer.render(scene, camera); // Render the scene
