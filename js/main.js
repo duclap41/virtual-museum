@@ -14,6 +14,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 
 scene.add(camera);
+camera.position.y = 2;
 camera.position.z = 5; // move cam back 5 units
 
 // Renderer
@@ -25,7 +26,8 @@ document.body.appendChild(renderer.domElement);
 // Light
     // AmbientLight 
 let ambientLight = new THREE.AmbientLight(0x101010, 1.0) // color, intensity, distance. decay
-// ambientLight.position = camera.position; // light folow camera
+// light folow camera
+ambientLight.position.copy(camera.position);
 scene.add(ambientLight);
 
     // Directional Light
@@ -38,5 +40,12 @@ let material = new THREE.MeshBasicMaterial({color: 0xff0000}) // corlor of objec
 let mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
-// Rendering
-renderer.render(scene, camera);
+// animation
+let renderLoop = function() {
+    mesh.rotation.x += 0.01;
+    mesh.rotation.y += 0.01;
+    renderer.render(scene, camera); // Render the scene
+    window.requestAnimationFrame(renderLoop);
+}
+
+renderLoop();
