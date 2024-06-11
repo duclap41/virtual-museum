@@ -40,10 +40,36 @@ let material = new THREE.MeshBasicMaterial({color: 0xff0000}) // corlor of objec
 let mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
+// Controls
+    // Evemt listener for when pressing keys
+document.addEventListener('keydown', onKeyDown, false);
+function onKeyDown(event) {
+    let keycode = event.which;
+
+    // right arrow key
+    if (keycode == 39) { // == is not must same data type
+        camera.translateX(-0.05);
+    }
+    // left arrow key
+    else if (keycode === 37) { // === is must same data type
+        camera.translateX(0.05);
+    }
+    // up arrow key
+    else if (keycode === 38) {
+        camera.translateY(-0.05);
+    }
+    // down arrow key
+    else if (keycode === 40) {
+        camera.translateY(0.05);
+    }
+}
+
 // animation
 let renderLoop = function() {
     mesh.rotation.x += 0.01;
     mesh.rotation.y += 0.01;
+    // mesh.rotateX(0.01);
+    // mesh.rotateY(0.01);
     renderer.render(scene, camera); // Render the scene
     window.requestAnimationFrame(renderLoop);
 }
