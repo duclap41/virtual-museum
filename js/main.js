@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-// import { PointerLockControls } from 'three-stdlib';
+import { PointerLockControls, ThreeMFLoader } from 'three-stdlib';
 
 // Scene
 const scene = new THREE.Scene();
@@ -41,13 +41,18 @@ scene.add(cube);
 
 // create room space
 // load floor texture
-const textureLoader = new THREE.TextureLoader().load('./img/Floor.jpg');
+// const textureLoader = new THREE.TextureLoader().load('./img/Floor.jpg');
+const textureLoader = new THREE.TextureLoader();
+const floorTexture = textureLoader.load("public/img/floor.jpg");
+floorTexture.wrapS = THREE.RepeatWrapping; // wrapS is horizonl direction
+floorTexture.wrapT = THREE.RepeatWrapping; // wrapT verical direction
+floorTexture.repeat.set(1, 5); // texture repeat time
 
 // create the floor plane
 let planeGeometry = new THREE.PlaneGeometry(50, 50);
 let planeMaterial = new THREE.MeshBasicMaterial( {
     //color: 0xffff00,
-    map: textureLoader,
+    map: floorTexture,
     side: THREE.BackSide // render both side of plane
 } );
 let plane = new THREE.Mesh(planeGeometry, planeMaterial);
@@ -101,6 +106,30 @@ const ceiling = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
 ceiling.rotateX(Math.PI / 2);
 ceiling.position.y = 6*Math.PI;
 scene.add(ceiling);
+
+function createPainting(imagePath, width, height, position) {
+    const textureLoader = new THREE.TextureLoader();
+    const paintingTexture = textureLoader.load(imagePath);
+    const paintingGeometry = new THREE.BoxGeometry(width, height);
+    const paintingMaterial = new THREE.MeshBasicMaterial({ map: paintingTexture });
+    const painting = new THREE.Mesh(paintingGeometry, paintingMaterial);
+    painting.position.copy(position);
+    return painting;
+}
+
+const painting01 = createPainting(
+    'public/artworks/0.jpg',
+    10,
+    5,
+    new THREE.Vector3(10, 5, -20)
+)
+const painting02 = createPainting(
+    'public/artworks/1.jpg',
+    10,
+    5,
+    new THREE.Vector3(-10, 5, -20)
+)
+scene.add(painting01, painting02);
 
 // Controls
     // Evemt listener for when pressing keys
