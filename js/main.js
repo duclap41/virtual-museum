@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+// import { PointerLockControls } from 'three-stdlib';
 
 // Scene
 const scene = new THREE.Scene();
