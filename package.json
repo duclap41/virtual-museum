@@ -1,0 +1,13 @@
+{
+  "repository": {"https://github.com/playwithoctopus/virtual-museum"},
+  "author": {
+    "name": "Nguyễn Đức Lập",
+    "email": "rumbonaruson@gmail.com"
+  },
+  "dependencies": {
+    "three": "^0.165.0"
+  },
+  "devDependencies": {
+    "vite": "^5.2.13"
+  }
+}
