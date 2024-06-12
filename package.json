@@ -5,6 +5,7 @@
     "email": "rumbonaruson@gmail.com"
   },
   "dependencies": {
+    "gltf-loader": "^1.0.0",
     "three": "^0.165.0",
     "three-stdlib": "^2.30.3"
   },

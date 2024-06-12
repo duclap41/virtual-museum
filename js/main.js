@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import { PointerLockControls} from 'three-stdlib';
+import { GLTFLoader, PointerLockControls} from 'three-stdlib';
+// import { GLTFLoader } from 'gltf-loader';
 
 // Scene
 const scene = new THREE.Scene();
@@ -27,76 +28,130 @@ document.body.appendChild(renderer.domElement);
 
 
 
-function createPainting(imagePath, width, height, position) {
+function createPainting(imagePath, width, height, position, info) {
     const textureLoader = new THREE.TextureLoader();
     const paintingTexture = textureLoader.load(imagePath);
     const paintingGeometry = new THREE.BoxGeometry(width, height);
     const paintingMaterial = new THREE.MeshBasicMaterial({ map: paintingTexture });
     const painting = new THREE.Mesh(paintingGeometry, paintingMaterial);
     painting.position.copy(position);
+    painting.userData = info;
     return painting;
 }
+const artworks = [];
 
+for (let i = 0; i < 6; i++) {  // 10 is an arbitrary number; change it to whatever number of artworks you need
+    const info = {
+        title: `Van Gogh ${i + 1}`,
+        artist: 'Vincent van Gogh',
+        description: `This is one of the masterpieces by Vincent van Gogh, showcasing his unique style and emotional honesty. Artwork ${
+            i + 1
+        } perfectly encapsulates his love for the beauty of everyday life.`,
+        year: `Year ${i + 1}`,
+    };
+
+    artworks.push(info);
+}
 const paintingHeight = 8;
 // on front wall
 const painting01 = createPainting(
-    'public/artworks/0.jpg',
+    'artworks/1.jpg',
     20,
     10,
-    new THREE.Vector3(15, paintingHeight, -60)
+    new THREE.Vector3(15, paintingHeight, -60),
+    {
+        type: 'painting', 
+        info: artworks[0], 
+    }
 )
 const painting02 = createPainting(
-    'public/artworks/1.jpg',
+    'artworks/2.jpg',
     20,
     10,
-    new THREE.Vector3(-15, paintingHeight, -60)
+    new THREE.Vector3(-15, paintingHeight, -60),
+    {
+        type: 'painting', 
+        info: artworks[1], 
+    }
 )
 scene.add(painting01, painting02)
 // on left wall
 const painting03 = createPainting(
-    'public/artworks/2.jpg',
+    'artworks/3.jpg',
     20,
     10,
-    new THREE.Vector3(-40, paintingHeight, -25)
+    new THREE.Vector3(-40, paintingHeight, -25),
+    {
+        type: 'painting', 
+        info: artworks[2], 
+    }
 )
 painting03.rotateY(Math.PI / 2);
 const painting04 = createPainting(
-    'public/artworks/3.jpg',
+    'artworks/4.jpg',
     20,
     10,
-    new THREE.Vector3(-40, paintingHeight, 30)
+    new THREE.Vector3(-40, paintingHeight, 30),
+    {
+        type: 'painting', 
+        info: artworks[3], 
+    }
 )
 painting04.rotateY(Math.PI / 2);
 scene.add(painting03, painting04);
 // on right wall
 const painting05 = createPainting(
-    'public/artworks/4.jpg',
+    'artworks/5.jpg',
     20,
     10,
-    new THREE.Vector3(40, paintingHeight, -25)
+    new THREE.Vector3(40, paintingHeight, -25),
+    {
+        type: 'painting', 
+        info: artworks[4], 
+    }
 )
 painting05.rotateY(-Math.PI / 2);
 const painting06 = createPainting(
-    'public/artworks/5.jpg',
+    'artworks/6.jpg',
     20,
     10,
-    new THREE.Vector3(40, paintingHeight, 30)
+    new THREE.Vector3(40, paintingHeight, 30),
+    {
+        type: 'painting', 
+        info: artworks[5], 
+    }
 )
 painting06.rotateY(-Math.PI / 2);
 scene.add(painting05, painting06);
 
-// Painting info
+let paintings = [painting01, painting02, painting03, painting04, painting05, painting06]
 
+// Painting info
+const displayPaintingInfo = (info) => {
+    const infoElement = document.getElementById("painting_info");
+
+    infoElement.innerHTML = `
+    <h3>${info.title}</h3>
+    <p>Artist: ${info.artist}</p>
+    <p>Description: ${info.description}</p>
+    <p>Year: ${info.year}</p>
+    `;
+    infoElement.classList.add("show");
+}
+const hidePaintingInfo = () => {
+    const infoElement = document.getElementById("painting_info"); // Get the reference
+    infoElement.classList.remove("show"); // Remove the 'show' class
+};
 
 // Light
     // AmbientLight 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.6) // color, intensity, distance. decay
 scene.add(ambientLight);
 
-//     // Directional Light
-// const sunLight = new THREE.DirectionalLight(0xdddddd, 1.0); // color, intensity
-// sunLight.position.y = 15;
-// scene.add(sunLight);
+    // Directional Light
+const sunLight = new THREE.DirectionalLight(0xdddddd, 1.0); // color, intensity
+sunLight.position.y = 20;
+scene.add(sunLight);
 
 // const spotlight = new THREE.Dir
 
@@ -133,7 +188,7 @@ createSpotlight(30, 25, 30, 1.5, painting06.position);
 const textureLoader = new THREE.TextureLoader();
 
 // create the floor plane
-const floorTexture = textureLoader.load("public/img/floor.jpg");
+const floorTexture = textureLoader.load("img/floor.jpg");
 floorTexture.wrapS = THREE.RepeatWrapping; // wrapS is horizonl direction
 floorTexture.wrapT = THREE.RepeatWrapping; // wrapT verical direction
 floorTexture.repeat.set(1, 5); // texture repeat time
@@ -147,18 +202,19 @@ plane.rotateX(Math.PI / 2); // pi/2 radian = 90 degrees
 scene.add(plane);
 
 // create ceilling
-const ceilingTexture = textureLoader.load("public/img/ceilling.jpg");
+const ceilingTexture = textureLoader.load("img/ceilling.jpg");
 ceilingTexture.wrapS = THREE.RepeatWrapping;
 ceilingTexture.wrapT = THREE.RepeatWrapping;
 ceilingTexture.repeat.set(1, 10);
 const ceilingGeometry = new THREE.PlaneGeometry(80, 120);
 const ceilingMaterial = new THREE.MeshLambertMaterial({
     map: ceilingTexture,
+    color: 0x9e8175 ,
     side: THREE.DoubleSide
 });
 const ceiling = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
 ceiling.rotateX(Math.PI / 2);
-ceiling.position.y = 30-5;
+ceiling.position.y = 35;
 scene.add(ceiling);
 
 // create the walls
@@ -167,14 +223,14 @@ wallGroup.position.y = 10;
 scene.add(wallGroup);
 
 // add wall texture
-const wallTexture = textureLoader.load('public/img/white-brick-wall.jpg')
+const wallTexture = textureLoader.load('img/white-brick-wall.jpg')
 wallTexture.wrapS = THREE.RepeatWrapping;
 wallTexture.wrapT = THREE.RepeatWrapping;
 wallTexture.repeat.set(1, 1);
 
 const wallMeterial = new THREE.MeshLambertMaterial({ map: wallTexture });
 
-const wallHeight = 30;
+const wallHeight = 50;
 // front wall
 const frontWall = new THREE.Mesh(
     new THREE.BoxGeometry(80, wallHeight, 0.001),
@@ -343,6 +399,24 @@ function updateMovement(delta) {
 // animation
 let renderLoop = function() {
     updateMovement(clock.getDelta());
+
+    const distanceThreshold = 8;
+    let paintingToShow = "";
+    paintings.forEach((paint) => {
+      const distanceToPainting = camera.position.distanceTo(paint.position);
+      if (distanceToPainting < distanceThreshold) {
+        paintingToShow = paint;
+      }
+    });
+
+    if (paintingToShow) {
+      // if there is a painting to show
+        displayPaintingInfo(paintingToShow.userData.info);
+    } 
+    else {
+        hidePaintingInfo();
+    }
+
     renderer.render(scene, camera); // Render the scene
     window.requestAnimationFrame(renderLoop);
 }
@@ -355,3 +429,89 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }, false);
+
+// Audio
+let sound;
+let bufferLoaded = false;
+
+const setupAudio = (camera) => {
+    const listener = new THREE.AudioListener();
+    camera.add(listener);
+
+    sound = new THREE.Audio(listener);
+
+    const audioLoader = new THREE.AudioLoader();
+    audioLoader.load('sound/tiersen.mp3', function(buffer) {
+        // load the audio file
+        sound.setBuffer(buffer); // set the audio source buffer
+        sound.setLoop(true); // set the audio source to loop
+        sound.setVolume(0.5); // set the audio source volume
+        bufferLoaded = true; // set bufferLoaded flag to true once the audio buffer is loaded
+    });
+}
+const startAudio = () => {
+    if (sound && bufferLoaded) {
+      // check if the buffer is loaded before playing
+      sound.play();
+    }
+};
+const stopAudio = () => {
+    if (sound) {
+      // check if the buffer is loaded before playing
+      sound.pause();
+    }
+};
+document.getElementById("start_audio").addEventListener('click', startAudio);
+document.getElementById("stop_audio").addEventListener('click', stopAudio);
+
+setupAudio(camera)
+
+// statue
+function loadModels(models) {
+    const loader = new GLTFLoader();
+    
+    models.forEach(modelInfo => {
+        loader.load(
+            modelInfo.path,
+            function (gltf) {
+                const model = gltf.scene;
+
+                // Set position
+                model.position.set(modelInfo.position.x, modelInfo.position.y, modelInfo.position.z);
+
+                // Set scale if provided
+                if (modelInfo.scale) {
+                    model.scale.set(modelInfo.scale.x, modelInfo.scale.y, modelInfo.scale.z);
+                }
+
+                // Set material if provided
+                if (modelInfo.material) {
+                    model.traverse(child => {
+                        if (child.isMesh) {
+                            child.material = modelInfo.material;
+                        }
+                    });
+                }
+
+                scene.add(model);
+            },
+            function (xhr) {
+                console.error(`Error loading GLTF model '${modelInfo.path}':`, xhr);
+            }
+        );
+    });
+}
+
+// Example usage with position and scale
+const models = [
+    { path: 'public/statue/statue01/scene.gltf',
+        position: new THREE.Vector3(-30, 0, 0),
+        scale:  new THREE.Vector3(0.2, 0.2, 0.2),
+        material: new THREE.MeshLambertMaterial({})},
+    { path: 'public/statue/statue02/scene.gltf',
+        position: new THREE.Vector3(-20, -2, -40),
+        scale:new THREE.Vector3(0.25, 0.25, 0.25),
+        material: new THREE.MeshLambertMaterial({}) },
+];
+
+loadModels(models);
