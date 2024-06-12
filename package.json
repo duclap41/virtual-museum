@@ -1,5 +1,5 @@
 {
-  "repository": {"https://github.com/playwithoctopus/virtual-museum"},
+  "repository": "https://github.com/playwithoctopus/virtual-museum",
   "author": {
     "name": "Nguyễn Đức Lập",
     "email": "rumbonaruson@gmail.com"
