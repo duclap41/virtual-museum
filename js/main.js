@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { PointerLockControls, ThreeMFLoader } from 'three-stdlib';
+import { PointerLockControls} from 'three-stdlib';
 
 // Scene
 const scene = new THREE.Scene();
@@ -132,27 +132,50 @@ const painting02 = createPainting(
 scene.add(painting01, painting02);
 
 // Controls
+const controls = new PointerLockControls(camera, document.body);
+
+// Lock the pointer and hide menu when experience start
+function startExperience() {
+    controls.lock();
+    hideMenu();
+}
+
+const playButton = document.getElementById('play_button');
+playButton.addEventListener('click', startExperience);
+controls.addEventListener('unclock')
+
+function hideMenu() {
+    const menu = document.getElementById('menu');
+    menu.style.display = 'none';
+}
+function showMenu() {
+    const menu = document.getElementById('menu');
+    menu.style.display = 'block';
+}
+controls.addEventListener('unlock', showMenu);
+
     // Evemt listener for when pressing keys
 document.addEventListener('keydown', onKeyDown, false);
 function onKeyDown(event) {
     let keycode = event.which;
 
     // right arrow key
-    if (keycode == 39) { // == is not must same data type
-        camera.translateX(0.05);
+    if (keycode == 39 || keycode == 68) { // == is not must same data type
+        controls.moveRight(0.2);
     }
     // left arrow key
-    else if (keycode === 37) { // === is must same data type
-        camera.translateX(-0.05);
+    else if (keycode === 37 || keycode == 65) { // === is must same data type
+        controls.moveRight(-0.2);
     }
     // up arrow key
-    else if (keycode === 38) {
-        camera.translateY(0.05);
+    else if (keycode === 38 || keycode == 87) {
+        controls.moveForward(0.2);
     }
     // down arrow key
-    else if (keycode === 40) {
-        camera.translateY(-0.05);
+    else if (keycode === 40 || keycode == 83) {
+        controls.moveForward(-0.2);
     }
+    // show menu
 }
 
 // animation
