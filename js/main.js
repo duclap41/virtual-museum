@@ -1,6 +1,6 @@
 import * as THREE from './three.module.js'; //ver r165
 
-console.log("Threejs object here",THREE); // display to console
+// console.log("Threejs object here",THREE); // display to console
 
 // Scene
 const scene = new THREE.Scene();
@@ -14,7 +14,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 
 scene.add(camera);
-camera.position.y = 2;
+camera.position.x = 0.5;
 camera.position.z = 5; // move cam back 5 units
 
 // Renderer
@@ -25,33 +25,78 @@ document.body.appendChild(renderer.domElement);
 
 // Light
     // AmbientLight 
-let ambientLight = new THREE.AmbientLight(0x101010, 1.0) // color, intensity, distance. decay
+const ambientLight = new THREE.AmbientLight(0x101010, 1.0) // color, intensity, distance. decay
 // light folow camera
 ambientLight.position.copy(camera.position);
 scene.add(ambientLight);
 
     // Directional Light
-let sunLight = new THREE.DirectionalLight(0xdddddd, 1.0); // color, intensity
+const sunLight = new THREE.DirectionalLight(0xdddddd, 1.0); // color, intensity
 sunLight.position.y = 15;
 scene.add(sunLight);
 
 let geometry = new THREE.BoxGeometry(1, 1, 1); // a box shape
-let material = new THREE.MeshBasicMaterial({color: 0xff0000}) // corlor of object
+let material = new THREE.MeshBasicMaterial({color: 0xff0000}); // corlor of object
 let cube = new THREE.Mesh(geometry, material); // create cube with geometry and material
 scene.add(cube);
 
+// create room space
 // load floor texture
 const textureLoader = new THREE.TextureLoader().load('./img/Floor.jpg');
 
 // create the floor plane
-let planeGeometry = new THREE.PLane
+let planeGeometry = new THREE.PlaneGeometry(50, 50);
 let planeMaterial = new THREE.MeshBasicMaterial( {
     //color: 0xffff00,
     map: textureLoader,
-    side: THREE.DoubleSide // render both side of plane
+    side: THREE.BackSide // render both side of plane
 } );
 let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+plane.rotateX(Math.PI / 2); // pi/2 radian = 90 degrees
+plane.position.y = -Math.PI;
+
 scene.add(plane);
+
+// create the walls
+const wallGroup = new THREE.Group(); // create a group to hold the walls
+wallGroup.position.y = Math.PI*2;
+scene.add(wallGroup);
+
+// front wall
+const frontWall = new THREE.Mesh(
+    new THREE.BoxGeometry(50, 20, 0.001),
+    new THREE.MeshBasicMaterial({ color: 'green' })
+);
+frontWall.translateZ(-20);
+wallGroup.add(frontWall);
+
+// left wall
+const leftWall = new THREE.Mesh(
+    new THREE.BoxGeometry(50, 20, 0.001),
+    new THREE.MeshBasicMaterial({ color: 'yellow' })
+);
+leftWall.rotateY(Math.PI / 2);
+leftWall.position.x = -20;
+wallGroup.add(leftWall);
+
+// right wall
+const rightWall = new THREE.Mesh(
+    new THREE.BoxGeometry(50, 20, 0.001),
+    new THREE.MeshBasicMaterial({ color: 'blue' })
+);
+rightWall.rotateY(Math.PI / 2);
+rightWall.position.x = 20;
+wallGroup.add(rightWall);
+
+// create ceilling
+const ceilingGeometry = new THREE.PlaneGeometry(50, 50);
+const ceilingMaterial = new THREE.MeshBasicMaterial({
+    color: 'purple'
+});
+const ceiling = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
+ceiling.rotateX(Math.PI / 2);
+ceiling.position.y = 6*Math.PI;
+scene.add(ceiling);
 
 // Controls
     // Evemt listener for when pressing keys
@@ -61,19 +106,19 @@ function onKeyDown(event) {
 
     // right arrow key
     if (keycode == 39) { // == is not must same data type
-        camera.translateX(-0.05);
+        camera.translateX(0.05);
     }
     // left arrow key
     else if (keycode === 37) { // === is must same data type
-        camera.translateX(0.05);
+        camera.translateX(-0.05);
     }
     // up arrow key
     else if (keycode === 38) {
-        camera.translateY(-0.05);
+        camera.translateY(0.05);
     }
     // down arrow key
     else if (keycode === 40) {
-        camera.translateY(0.05);
+        camera.translateY(-0.05);
     }
 }
 
