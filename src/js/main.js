@@ -1,6 +1,4 @@
-import * as THREE from './three.module.js'; //ver r165
-
-// console.log("Threejs object here",THREE); // display to console
+import * as THREE from 'three';
 
 // Scene
 const scene = new THREE.Scene();
@@ -68,7 +66,6 @@ const frontWall = new THREE.Mesh(
     new THREE.MeshBasicMaterial({ color: 'green' })
 );
 frontWall.translateZ(-20);
-wallGroup.add(frontWall);
 
 // left wall
 const leftWall = new THREE.Mesh(
@@ -77,7 +74,6 @@ const leftWall = new THREE.Mesh(
 );
 leftWall.rotateY(Math.PI / 2);
 leftWall.position.x = -20;
-wallGroup.add(leftWall);
 
 // right wall
 const rightWall = new THREE.Mesh(
@@ -86,7 +82,14 @@ const rightWall = new THREE.Mesh(
 );
 rightWall.rotateY(Math.PI / 2);
 rightWall.position.x = 20;
-wallGroup.add(rightWall);
+
+wallGroup.add(frontWall, leftWall, rightWall);
+
+// loop through each wall, create bounding box (for collision)
+for (let i = 0; i < wallGroup.children.length; i++) {
+    wallGroup.children[i].BBox = new THREE.Box3();
+    wallGroup.children[i].BBox.setFromObject(wallGroup.children[i]);
+}
 
 // create ceilling
 const ceilingGeometry = new THREE.PlaneGeometry(50, 50);
