@@ -268,25 +268,6 @@ for (let i = 0; i < wallGroup.children.length; i++) {
     wallGroup.children[i].BBox = new THREE.Box3();
     wallGroup.children[i].BBox.setFromObject(wallGroup.children[i]); // add bbox for walls
 }
-// check if player intersects with the wall
-function checkCollision() {
-    const playerBBox = new THREE.Box3();
-    const cameraWorldPosition = new THREE.Vector3(); // create vector hold camera position
-    camera.getWorldPosition(cameraWorldPosition); // get the camera position, store it in vector
-    playerBBox.setFromCenterAndSize( //take center abd size of bbox
-        cameraWorldPosition,
-        new THREE.Vector3(1, 1, 1)
-    ); // set player's bbox and center it on camera's world potision
-
-    // loop through each wall
-    for (let i = 0; i < wallGroup.children.length; i++) {
-        const wall = wallGroup.children[i];
-        if (playerBBox.intersectsBox(wall.BBox)) {
-            return true;
-        }
-    };
-    return false;
-}
 
 
 // Enable shadows on objects
@@ -484,6 +465,11 @@ function loadModels(models) {
                     model.scale.set(modelInfo.scale.x, modelInfo.scale.y, modelInfo.scale.z);
                 }
 
+                // Set rotation if provided
+                if (modelInfo.rotation) {
+                    model.rotation.set(modelInfo.rotation.x, modelInfo.rotation.y, modelInfo.rotation.z);
+                }
+
                 // Set material if provided
                 if (modelInfo.material) {
                     model.traverse(child => {
@@ -507,11 +493,39 @@ const models = [
     { path: 'public/statue/statue01/scene.gltf',
         position: new THREE.Vector3(-30, 0, 0),
         scale:  new THREE.Vector3(0.2, 0.2, 0.2),
-        material: new THREE.MeshLambertMaterial({})},
+        rotation: new THREE.Euler(0, Math.PI / 2, 0),
+        material: new THREE.MeshPhongMaterial({})},
     { path: 'public/statue/statue02/scene.gltf',
         position: new THREE.Vector3(-20, -2, -40),
         scale:new THREE.Vector3(0.25, 0.25, 0.25),
-        material: new THREE.MeshLambertMaterial({}) },
+        material: new THREE.MeshPhongMaterial({}) },
+    { path: 'public/statue/statue03/scene.gltf',
+        position: new THREE.Vector3(30, 0, 0),
+        scale:new THREE.Vector3(0.2, 0.2, 0.2),
+        rotation: new THREE.Euler(0, -Math.PI / 2, 0),
+        material: new THREE.MeshPhongMaterial({}) },
 ];
 
 loadModels(models);
+
+// collision
+// check if player intersects with the wall
+function checkCollision() {
+    const playerBBox = new THREE.Box3();
+    const cameraWorldPosition = new THREE.Vector3(); // create vector hold camera position
+    camera.getWorldPosition(cameraWorldPosition); // get the camera position, store it in vector
+    playerBBox.setFromCenterAndSize( //take center abd size of bbox
+        cameraWorldPosition,
+        new THREE.Vector3(1, 1, 1)
+    ); // set player's bbox and center it on camera's world potision
+
+    // loop through each wall
+    for (let i = 0; i < wallGroup.children.length; i++) {
+        const wall = wallGroup.children[i];
+        if (playerBBox.intersectsBox(wall.BBox)) {
+            return true;
+        }
+    };
+
+    return false;
+}
