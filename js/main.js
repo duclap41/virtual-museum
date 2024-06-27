@@ -202,7 +202,7 @@ plane.rotateX(Math.PI / 2); // pi/2 radian = 90 degrees
 scene.add(plane);
 
 // create ceilling
-const ceilingTexture = textureLoader.load("img/ceilling.jpg");
+const ceilingTexture = textureLoader.load("img/ceiling.jpg");
 ceilingTexture.wrapS = THREE.RepeatWrapping;
 ceilingTexture.wrapT = THREE.RepeatWrapping;
 ceilingTexture.repeat.set(1, 10);
@@ -307,7 +307,6 @@ function startExperience() {
 
 const playButton = document.getElementById('play_button');
 playButton.addEventListener('click', startExperience);
-controls.addEventListener('unclock')
 
 function hideMenu() {
     const menu = document.getElementById('menu');
@@ -351,7 +350,7 @@ document.addEventListener(
   );
 
 // Add the movement (left/right/forward/backward) to the scene. Press the arrow keys or WASD to move
-const clock = new THREE.Clock(); // create a clock to keep track the time between frames
+let clock = new THREE.Clock(); // create a clock to keep track the time between frames
 
 function updateMovement(delta) {
     const moveSpeed = 12 * delta;
@@ -490,16 +489,16 @@ function loadModels(models) {
 
 // Example usage with position and scale
 const models = [
-    { path: 'public/statue/statue01/scene.gltf',
+    { path: 'statue/statue01/scene.gltf',
         position: new THREE.Vector3(-30, 0, 0),
         scale:  new THREE.Vector3(0.2, 0.2, 0.2),
         rotation: new THREE.Euler(0, Math.PI / 2, 0),
         material: new THREE.MeshPhongMaterial({})},
-    { path: 'public/statue/statue02/scene.gltf',
+    { path: 'statue/statue02/scene.gltf',
         position: new THREE.Vector3(-20, -2, -40),
         scale:new THREE.Vector3(0.25, 0.25, 0.25),
         material: new THREE.MeshPhongMaterial({}) },
-    { path: 'public/statue/statue03/scene.gltf',
+    { path: 'statue/statue03/scene.gltf',
         position: new THREE.Vector3(30, 0, 0),
         scale:new THREE.Vector3(0.2, 0.2, 0.2),
         rotation: new THREE.Euler(0, -Math.PI / 2, 0),
