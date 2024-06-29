@@ -3,11 +3,12 @@ import { GLTFLoader, PointerLockControls} from 'three-stdlib';
 
 import { scene, camera, renderer } from './scene.js';
 import { initPaintings, displayPaintingInfo, hidePaintingInfo, paintings } from './painting.js';
+import { initModels } from './model.js';
+import { initDrawBlock } from './drawBlock.js';
 import { setupLights } from './light.js';
 import { createRoomSpace, wallGroup} from './room.js';
 import { startExperience, showMenu } from './control.js';
 import { setupAudio } from './audio.js';
-import { initModels, loadedModels } from './model.js';
 import { updateMovement } from './movement.js';
 
 // init
@@ -17,17 +18,20 @@ let clock = new THREE.Clock();
 // Add paintings to the scene
 initPaintings(scene);
 
+// Load models
+initModels(scene);
+
+// Draw blocks
+initDrawBlock();
+
 // Setup lights
-setupLights(scene, paintings, loadedModels);
+setupLights(scene, paintings);
 
 // Create room
 createRoomSpace(scene);
 
 // Setup audio
 setupAudio(camera);
-
-// Load models
-initModels(scene);
 
 // Start experience button
 const playButton = document.getElementById('play_button');

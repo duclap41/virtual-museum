@@ -55,6 +55,9 @@ function updateMovement(delta, camera, controls, wallGroup) {
 }
 
 // collision
+const objects = [];
+// create bbox for every object
+
 // check if player intersects with the wall
 function checkCollision(camera, wallGroup) {
     const playerBBox = new THREE.Box3();
@@ -76,4 +79,4 @@ function checkCollision(camera, wallGroup) {
     return false;
 }
 
-export { updateMovement };
+export { updateMovement, objects };

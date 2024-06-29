@@ -4,6 +4,8 @@ import * as config from './config.json';
 const ROOM_HEIGHT = config.RoomHeight;
 const ROOM_WIDTH = config.RoomWidth;
 const ROOM_DEPTH = config.RoomDepth;
+const VINTAGE_RED = 0xDD5746;
+const VINTAGE_WHITE = 0xFEFAF6;
 
 let wallGroup;
 
@@ -11,14 +13,15 @@ function createRoomSpace(scene) {
     const textureLoader = new THREE.TextureLoader();
 
     // Floor
-    const floorTexture = textureLoader.load("img/floor.jpg");
+    const floorTexture = textureLoader.load("img/carpet_floor.png");
     floorTexture.wrapS = THREE.RepeatWrapping; // hortizon
     floorTexture.wrapT = THREE.RepeatWrapping; // vertical
-    floorTexture.repeat.set(1, 5);
+    floorTexture.repeat.set(7, 5);
 
     const planeGeometry = new THREE.PlaneGeometry(ROOM_WIDTH, ROOM_DEPTH);
     const planeMaterial = new THREE.MeshLambertMaterial({
-        color: 'brown',
+        map: floorTexture,
+        color: VINTAGE_RED,
         side: THREE.DoubleSide
     });
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
@@ -33,6 +36,7 @@ function createRoomSpace(scene) {
     const ceilingGeometry = new THREE.PlaneGeometry(ROOM_WIDTH, ROOM_DEPTH);
     const ceilingMaterial = new THREE.MeshLambertMaterial({
         map: ceilingTexture,
+        color: VINTAGE_WHITE,
         side: THREE.DoubleSide
     });
     const ceiling = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
@@ -52,7 +56,7 @@ function createRoomSpace(scene) {
 
     const wallMaterial = new THREE.MeshLambertMaterial({
         map: wallTexture,
-        color: 0xe8e9eb,
+        color: VINTAGE_WHITE,
         side: THREE.DoubleSide
     });
 
