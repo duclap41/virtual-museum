@@ -18,7 +18,7 @@ function createRoomSpace(scene) {
 
     const planeGeometry = new THREE.PlaneGeometry(ROOM_WIDTH, ROOM_DEPTH);
     const planeMaterial = new THREE.MeshLambertMaterial({
-        map: floorTexture,
+        color: 'brown',
         side: THREE.DoubleSide
     });
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
@@ -94,7 +94,7 @@ function createRoomSpace(scene) {
         wallGroup.children[i].BBox.setFromObject(wallGroup.children[i]); // add bbox for walls
 
     // for light
-    plane.receiveShadow = true;
+    // plane.receiveShadow = true;
     plane.castShadow = true;
     ceiling.receiveShadow = true;
     ceiling.castShadow = true;
@@ -106,8 +106,7 @@ function createRoomSpace(scene) {
     wall3.castShadow = true;
     wall4.receiveShadow = true;
     wall4.castShadow = true;
-
-}
+    }
 }
 
 export { createRoomSpace, wallGroup };

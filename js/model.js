@@ -1,7 +1,9 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three-stdlib';
 import * as sketchfab from "https://static.sketchfab.com/api/sketchfab-viewer-1.12.0.js";
+import { createSpotlight } from './light.js';
 import * as config from './config.json';
+import { vec3 } from 'three/examples/jsm/nodes/Nodes.js';
 
 const ROOM_HEIGHT = config.RoomHeight;
 const ROOM_WIDTH = config.RoomWidth;
@@ -20,6 +22,11 @@ function loadModel(models, scene) {
 
                 // Set position
                 model.position.set(modelInfo.position.x, modelInfo.position.y, modelInfo.position.z);
+
+                // set Light
+                if (modelInfo.spotlight) {
+                    createSpotlight(model.position.x, ROOM_HEIGHT-30 , model.position.z, 100, 8, 100, model.position);
+                }
 
                 // Set scale if provided
                 if (modelInfo.scale) {
@@ -45,7 +52,7 @@ function loadModel(models, scene) {
                 model.castShadow = true;
 
                 scene.add(model);
-                loadedModels.add(model);
+                loadedModels.push(model);
             },
             // function (xhr) {
             //     console.error(`Error loading GLTF model '${modelInfo.path}':`, xhr);
@@ -59,10 +66,12 @@ function initModels(scene) {
         // Statue
         { path: 'statue/statue01/scene.gltf',
             position: new THREE.Vector3(-40, 0, 0),
+            spotlight: true,
             scale:  new THREE.Vector3(0.3, 0.3, 0.3),
             rotation: new THREE.Euler(0, Math.PI / 2, 0)},
         { path: 'statue/statue03/scene.gltf',
             position: new THREE.Vector3(40, 0, 0),
+            spotlight: true,
             scale:new THREE.Vector3(0.3, 0.3, 0.3),
             rotation: new THREE.Euler(0, -Math.PI / 2, 0)},
         // Door
