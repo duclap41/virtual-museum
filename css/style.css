@@ -118,44 +118,44 @@ canvas {
     height: 100%;
   }
 
-  #painting_info {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    border-radius: 10px;
-    font-family: "Arial", sans-serif;
-    color: #fff;
-    width: 300px;
-    height: 150px;
-    z-index: 1;
-    transition: all 0.3s ease-in-out;
-    transform: translateY(100px);
-    opacity: 0;
-  }
-  
-  #painting_info.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  
-  #painting_info h3 {
-    margin: 0 0 10px 0;
-    font-size: 2em;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  #painting_info p {
-    margin: 0;
-    font-size: 1.2em;
-  }
+#painting_info {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  font-family: "Arial", sans-serif;
+  color: #fff;
+  width: 300px;
+  height: 150px;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(100px);
+  opacity: 0;
+}
+
+#painting_info.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#painting_info h3 {
+  margin: 0 0 10px 0;
+  font-size: 2em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#painting_info p {
+  margin: 0;
+  font-size: 1.2em;
+}
 
 #audio_controls {
   position: fixed;
   top: 10px;
-  right: 10px;
+  left: 10px;
   z-index: 2; /* To make sure it shows up on top of other elements */
 }
 

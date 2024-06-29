@@ -7,7 +7,7 @@ Install Node.js
 
 Install dependencies: (2 packages)
 ```bash
-npm install --save three vite three-stdlib
+npm install --save three vite three-stdlib dat.gui
 ```
 
 Run:

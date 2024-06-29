@@ -1,7 +1,4 @@
-import * as THREE from 'three';
-import { GLTFLoader, PointerLockControls} from 'three-stdlib';
-
-import { scene, camera, renderer } from './scene.js';
+import { scene, camera, renderer, controls, clock } from './scene.js';
 import { initPaintings, displayPaintingInfo, hidePaintingInfo, paintings } from './painting.js';
 import { initModels, modelData } from './model.js';
 import { initDrawBlock } from './drawBlock.js';
@@ -10,10 +7,7 @@ import { createRoomSpace} from './room.js';
 import { startExperience, showMenu } from './control.js';
 import { setupAudio } from './audio.js';
 import { updateMovement } from './movement.js';
-
-// init
-let controls = new PointerLockControls(camera, document.body);
-let clock = new THREE.Clock();
+import { clickHandling } from './clickHandling.js';
 
 // Add paintings to the scene
 initPaintings();
@@ -33,15 +27,12 @@ createRoomSpace(scene);
 // Setup audio
 setupAudio(camera);
 
-// Start experience button
-const playButton = document.getElementById('play_button');
-playButton.addEventListener('click', () => startExperience(controls, clock));
-
-controls.addEventListener('unlock', showMenu);
+// add click event
+clickHandling();
 
 // Animation loop
 function renderLoop() {
-    updateMovement(clock.getDelta(), controls);
+    updateMovement(clock.getDelta());
     const distanceThreshold = 25;
     let paintingToShow = "";
 

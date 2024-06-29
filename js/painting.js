@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { scene } from './scene.js';
+import * as dat from 'dat.gui';
 import * as config from './config.json';
 
 const ROOM_HEIGHT = config.RoomHeight;

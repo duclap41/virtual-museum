@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { scene } from './scene.js';
 import { paintings } from './painting.js';
+import * as dat from 'dat.gui';
 import * as config from './config.json';
 
 const ROOM_HEIGHT = config.RoomHeight;
@@ -12,7 +13,7 @@ const PAINTING_HEIGHT = config.PaintingHeight;
 // Point light
 function createPointlight(x, y, z, intensity=150) {
     const pointLight = new THREE.PointLight(COLOR_LIGTHT, intensity);
-    pointLight.distance = ROOM_HEIGHT - 40;
+    pointLight.distance = ROOM_HEIGHT - 20;
     pointLight.decay = 1.2;
     pointLight.position.set(x, y, z);
     scene.add(pointLight);
@@ -36,7 +37,6 @@ function createSpotlight(x, y, z, intensity, angleRatio, distance, decay, target
     // const spotLightHelper = new THREE.SpotLightHelper(spotlight);
     // scene.add(spotLightHelper);
 }
-
 // add into scene
 function setupLights() {
     // add ambient light
@@ -68,6 +68,11 @@ function setupLights() {
     createSpotlight((ROOM_WIDTH/2 - 10), PAINTING_HEIGHT + 11, -25, 200, 4.5, 80, 1.5, paintings[3].position);
     createSpotlight((ROOM_WIDTH/2 - 10), PAINTING_HEIGHT + 11, 30, 200, 4.5, 80, 1.5, paintings[4].position);
 
+    // change light
+    const gui = new dat.GUI({name: "Light"});
+    const light_folder = gui.addFolder("Light");
+    light_folder.open();
+    light_folder.add(ambientLight, "intensity", 0.3, 20);
 }
 
 export { setupLights, createSpotlight };

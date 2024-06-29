@@ -20,6 +20,7 @@ function initDrawBlock() {
     )
     cube.position.set(ROOM_WIDTH/2-10, 10/2 , (ROOM_DEPTH/2 - 10));
     scene.add(cube);
+    blocks.push(cube);
 
     // sphere
     const sphere = new THREE.Mesh(
@@ -30,6 +31,7 @@ function initDrawBlock() {
     )
     sphere.position.set(ROOM_WIDTH/2-10, 7 , -(ROOM_DEPTH/2 - 10));
     scene.add(sphere);
+    blocks.push(sphere);
 
     // cone
     const cone = new THREE.Mesh(
@@ -41,6 +43,7 @@ function initDrawBlock() {
     cone.position.set(-(ROOM_WIDTH/2-10), 10/2 , -(ROOM_DEPTH/2 - 10));
     cone.rotateX(Math.PI);
     scene.add(cone);
+    blocks.push(cone);
 
     // cylinder
     const cylinder = new THREE.Mesh(
@@ -52,6 +55,7 @@ function initDrawBlock() {
     cylinder.position.set(-(ROOM_WIDTH/2-10), 10/2 , (ROOM_DEPTH/2 - 10));
     cylinder.rotateX(Math.PI);
     scene.add(cylinder);
+    blocks.push(cylinder);
 
     // splot light
     createSpotlight(cube.position.x, ROOM_HEIGHT-30, cube.position.z, 200, 10, 120, 1, cube.position);
@@ -70,7 +74,6 @@ function initDrawBlock() {
     cylinder.receiveShadow = true;
 
     // for collision
-    blocks.push(cube, sphere, cone, cylinder);
     for (let i = 0; i < blocks.length; i++) {
         blocks[i].BBox = new THREE.Box3();
         blocks[i].BBox.setFromObject(blocks[i]);

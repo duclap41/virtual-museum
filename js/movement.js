@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 import { wallGroup } from './room.js';
 import { paintings } from './painting.js';
-import { camera } from './scene.js';
+import { camera, controls, clock } from './scene.js';
 import { loadedModels } from './model.js';
 import { blocks } from './drawBlock.js';
+import { hideMenu, showMenu } from './control.js';
 
 const keysPressed = {
   ArrowUp: false,
@@ -16,13 +17,34 @@ const keysPressed = {
   d: false,
 };
 // Event listener for when we press keys
+let isLock = false;
 document.addEventListener(
   'keydown',
   (event) => {
       if (event.key in keysPressed) {
       keysPressed[event.key] = true;
       }
-  },
+      if (event.key === "Enter") {
+        hideMenu();
+        controls.lock();
+      }
+      if (event.key === "v") {
+        controls.addEventListener('unlock', showMenu);
+        controls.unlock();
+        // showMenu();
+        }
+      if (event.key === "e") {
+        if (!isLock) {
+          controls.addEventListener('unlock', hideMenu);
+          controls.unlock();
+          isLock = true;
+        }
+        else {
+          controls.lock();
+          isLock = false;
+        }
+      }
+    },
   false
 );
 // Event Listener for when we release keys
@@ -36,7 +58,8 @@ document.addEventListener(
   false
 );
 
-function updateMovement(delta, controls) {
+let isCrtl = false;
+function updateMovement(delta) {
     const moveSpeed = 15 * delta;
     const previousPosition = camera.position.clone();
 
@@ -74,29 +97,29 @@ function checkCollision() {
 
     // loop through each wall
     for (let i = 0; i < wallGroup.children.length; i++) {
-        const object = wallGroup.children[i];
-        if (playerBBox.intersectsBox(object.BBox)) {
-            return true;
-        }
+      const object = wallGroup.children[i];
+      if (playerBBox.intersectsBox(object.BBox)) {
+          return true;
       }
+    }
     for (let i = 0; i < paintings.length; i++) {
       const object = paintings[i];
-        if (playerBBox.intersectsBox(object.BBox)) {
-            return true;
-        }
+      if (playerBBox.intersectsBox(object.BBox)) {
+          return true;
       }
+    }
     for (let i = 0; i < loadedModels.length; i++) {
       const object = loadedModels[i];
-        if (playerBBox.intersectsBox(object.BBox)) {
-            return true;
-        }
+      if (playerBBox.intersectsBox(object.BBox)) {
+          return true;
       }
+    }
     for (let i = 0; i < blocks.length; i++) {
       const object = blocks[i];
-        if (playerBBox.intersectsBox(object.BBox)) {
-            return true;
-        }
-      }
+      if (playerBBox.intersectsBox(object.BBox)) {
+          return true;
+      } 
+    }
 
     return false;
 }
