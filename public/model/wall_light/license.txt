@@ -1,0 +1,11 @@
+Model Information:
+* title:	Wall Light
+* source:	https://sketchfab.com/3d-models/wall-light-d8f0b74a6a8d4f4a9c02f33a212216b3
+* author:	Blizzy (https://sketchfab.com/jeffbas)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Wall Light" (https://sketchfab.com/3d-models/wall-light-d8f0b74a6a8d4f4a9c02f33a212216b3) by Blizzy (https://sketchfab.com/jeffbas) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

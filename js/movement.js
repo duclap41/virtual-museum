@@ -32,14 +32,14 @@ document.addEventListener(
 );
 
 function updateMovement(delta, camera, controls, wallGroup) {
-    const moveSpeed = 12 * delta;
+    const moveSpeed = 15 * delta;
     const previousPosition = camera.position.clone();
 
     if (keysPressed.ArrowRight || keysPressed.d) {
-      controls.moveRight(moveSpeed);
+      controls.moveRight(moveSpeed*1.5);
     }
     if (keysPressed.ArrowLeft || keysPressed.a) {
-      controls.moveRight(-moveSpeed);
+      controls.moveRight(-moveSpeed*1.5);
     }
     if (keysPressed.ArrowUp || keysPressed.w) {
       controls.moveForward(moveSpeed);

@@ -1,4 +1,10 @@
 import * as THREE from 'three';
+import * as config from './config.json';
+
+const ROOM_HEIGHT = config.RoomHeight;
+const ROOM_WIDTH = config.RoomWidth;
+const ROOM_DEPTH = config.RoomDepth;
+const PAINTING_HEIGHT = config.PaintingHeight;
 
 function createPainting(imagePath, width, height, position, info) {
     const textureLoader = new THREE.TextureLoader();
@@ -30,13 +36,12 @@ function initPaintings(scene) {
         artworks.push(info);
     }
 
-    const paintingHeight = 8;
     // on front wall
     const painting01 = createPainting(
         'artworks/1.jpg',
         20,
         10,
-        new THREE.Vector3(15, paintingHeight, -60),
+        new THREE.Vector3(15, PAINTING_HEIGHT, -ROOM_DEPTH/2),
         { type: 'painting', info: artworks[0] }
     );
 
@@ -44,7 +49,7 @@ function initPaintings(scene) {
         'artworks/2.jpg',
         20,
         10,
-        new THREE.Vector3(-15, paintingHeight, -60),
+        new THREE.Vector3(-15, PAINTING_HEIGHT, -ROOM_DEPTH/2),
         { type: 'painting', info: artworks[1] }
     );
 
@@ -54,7 +59,7 @@ function initPaintings(scene) {
         'artworks/3.jpg',
         20,
         10,
-        new THREE.Vector3(-40, paintingHeight, -25),
+        new THREE.Vector3(-ROOM_WIDTH/2, PAINTING_HEIGHT, -25),
         { type: 'painting', info: artworks[2] }
     );
 
@@ -64,7 +69,7 @@ function initPaintings(scene) {
         'artworks/4.jpg',
         20,
         10,
-        new THREE.Vector3(-40, paintingHeight, 30),
+        new THREE.Vector3(-ROOM_WIDTH/2, PAINTING_HEIGHT, 30),
         { type: 'painting', info: artworks[3] }
     );
 
@@ -75,7 +80,7 @@ function initPaintings(scene) {
         'artworks/5.jpg',
         20,
         10,
-        new THREE.Vector3(40, paintingHeight, -25),
+        new THREE.Vector3(ROOM_WIDTH/2, PAINTING_HEIGHT, -25),
         { type: 'painting', info: artworks[4] }
     );
 
@@ -85,7 +90,7 @@ function initPaintings(scene) {
         'artworks/6.jpg',
         20,
         10,
-        new THREE.Vector3(40, paintingHeight, 30),
+        new THREE.Vector3(ROOM_WIDTH/2, PAINTING_HEIGHT, 30),
         { type: 'painting', info: artworks[5] }
     );
 
@@ -94,6 +99,20 @@ function initPaintings(scene) {
 
     // for show info section
     paintings.push(painting01, painting02, painting03, painting04, painting05, painting06);
+
+    // for light
+    painting01.castShadow = true;
+    painting01.receiveShadow = true;
+    painting02.castShadow = true;
+    painting02.receiveShadow = true;
+    painting03.castShadow = true;
+    painting03.receiveShadow = true;
+    painting04.castShadow = true;
+    painting04.receiveShadow = true;
+    painting05.castShadow = true;
+    painting05.receiveShadow = true;
+    painting06.castShadow = true;
+    painting06.receiveShadow = true;
 }
 
 // show info of painting

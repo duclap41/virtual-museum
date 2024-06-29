@@ -7,7 +7,7 @@ import { setupLights } from './light.js';
 import { createRoomSpace, wallGroup} from './room.js';
 import { startExperience, showMenu } from './control.js';
 import { setupAudio } from './audio.js';
-import { initStatues } from './statue.js';
+import { initStatues } from './model.js';
 import { updateMovement } from './movement.js';
 
 // init
