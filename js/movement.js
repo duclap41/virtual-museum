@@ -1,4 +1,9 @@
 import * as THREE from 'three';
+import { wallGroup } from './room.js';
+import { paintings } from './painting.js';
+import { camera } from './scene.js';
+import { loadedModels } from './model.js';
+import { blocks } from './drawBlock.js';
 
 const keysPressed = {
   ArrowUp: false,
@@ -31,7 +36,7 @@ document.addEventListener(
   false
 );
 
-function updateMovement(delta, camera, controls, wallGroup) {
+function updateMovement(delta, controls) {
     const moveSpeed = 15 * delta;
     const previousPosition = camera.position.clone();
 
@@ -49,17 +54,16 @@ function updateMovement(delta, camera, controls, wallGroup) {
     }
 
     //if collision, revert camera's potision to previous position
-    if (checkCollision(camera, wallGroup)) {
+    if (checkCollision()) {
         camera.position.copy(previousPosition);
     }
 }
 
 // collision
-const objects = [];
 // create bbox for every object
 
 // check if player intersects with the wall
-function checkCollision(camera, wallGroup) {
+function checkCollision() {
     const playerBBox = new THREE.Box3();
     const cameraWorldPosition = new THREE.Vector3(); // create vector hold camera position
     camera.getWorldPosition(cameraWorldPosition); // get the camera position, store it in vector
@@ -70,13 +74,31 @@ function checkCollision(camera, wallGroup) {
 
     // loop through each wall
     for (let i = 0; i < wallGroup.children.length; i++) {
-        const wall = wallGroup.children[i];
-        if (playerBBox.intersectsBox(wall.BBox)) {
+        const object = wallGroup.children[i];
+        if (playerBBox.intersectsBox(object.BBox)) {
             return true;
         }
-    };
+      }
+    for (let i = 0; i < paintings.length; i++) {
+      const object = paintings[i];
+        if (playerBBox.intersectsBox(object.BBox)) {
+            return true;
+        }
+      }
+    for (let i = 0; i < loadedModels.length; i++) {
+      const object = loadedModels[i];
+        if (playerBBox.intersectsBox(object.BBox)) {
+            return true;
+        }
+      }
+    for (let i = 0; i < blocks.length; i++) {
+      const object = blocks[i];
+        if (playerBBox.intersectsBox(object.BBox)) {
+            return true;
+        }
+      }
 
     return false;
 }
 
-export { updateMovement, objects };
+export { updateMovement };

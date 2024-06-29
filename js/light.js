@@ -1,7 +1,6 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three-stdlib';
 import { scene } from './scene.js';
-import { initModels } from './model.js';
+import { paintings } from './painting.js';
 import * as config from './config.json';
 
 const ROOM_HEIGHT = config.RoomHeight;
@@ -34,12 +33,12 @@ function createSpotlight(x, y, z, intensity, angleRatio, distance, decay, target
     scene.add(spotlight);
     scene.add(spotlight.target);
 
-    const spotLightHelper = new THREE.SpotLightHelper(spotlight);
-    scene.add(spotLightHelper);
+    // const spotLightHelper = new THREE.SpotLightHelper(spotlight);
+    // scene.add(spotLightHelper);
 }
 
 // add into scene
-function setupLights(scene, paintings) {
+function setupLights() {
     // add ambient light
     const ambientLight = new THREE.AmbientLight(COLOR_LIGTHT, 0.6);
     scene.add(ambientLight);

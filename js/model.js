@@ -2,15 +2,16 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three-stdlib';
 import * as sketchfab from "https://static.sketchfab.com/api/sketchfab-viewer-1.12.0.js";
 import { createSpotlight } from './light.js';
+import { scene } from './scene.js';
 import * as config from './config.json';
-import { vec3 } from 'three/examples/jsm/nodes/Nodes.js';
 
 const ROOM_HEIGHT = config.RoomHeight;
 const ROOM_WIDTH = config.RoomWidth;
 const ROOM_DEPTH = config.RoomDepth;
 const PAINTING_HEIGHT = config.PaintingHeight;
 
-function loadModel(models, scene) {
+const loadedModels = [];
+function loadModel(models) {
     const loader = new GLTFLoader();
     
     models.forEach(modelInfo => {
@@ -50,6 +51,11 @@ function loadModel(models, scene) {
                 model.receiveShadow = true;
                 model.castShadow = true;
 
+                // create bbox
+                model.BBox = new THREE.Box3();
+                model.BBox.setFromObject(model);
+
+                loadedModels.push(model);
                 scene.add(model);
             },
             // function (xhr) {
@@ -59,7 +65,50 @@ function loadModel(models, scene) {
     });
 }
 
-function initModels(scene) {
+const modelData = [
+    {
+        position: new THREE.Vector3(-40, 0, 0),
+        info: {
+            title: `Statue 1`,
+            artist: 'Vincent van Gogh',
+            description: `This is one of the masterpieces by Vincent van Gogh, showcasing his unique style and emotional honesty. Artwork ${
+                1
+            } perfectly encapsulates his love for the beauty of everyday life.`,
+            year: `Year 1`,
+        }
+    },
+    {
+        position: new THREE.Vector3(40, 0, 0),
+        info: {
+            title: `Statue 2`,
+            artist: 'Vincent van Gogh',
+            description: `This is one of the masterpieces by Vincent van Gogh, showcasing his unique style and emotional honesty. Artwork ${
+                2
+            } perfectly encapsulates his love for the beauty of everyday life.`,
+            year: `Year 2`,
+        }
+    }
+]
+
+// show info of painting
+function displayModelInfo(info) {
+    const infoElement = document.getElementById("painting_info");
+
+    infoElement.innerHTML = `
+        <h3>${info.title}</h3>
+        <p>Artist: ${info.artist}</p>
+        <p>Description: ${info.description}</p>
+        <p>Year: ${info.year}</p>
+    `;
+    infoElement.classList.add("show");
+}
+// hide info of painting
+function hideModelInfo() {
+    const infoElement = document.getElementById("painting_info");
+    infoElement.classList.remove("show");
+}
+
+function initModels() {
     const models = [
         // Statue
         { path: 'statue/statue01/scene.gltf',
@@ -157,7 +206,7 @@ function initModels(scene) {
 
     ];
 
-    loadModel(models, scene);
+    loadModel(models);
 }
 
-export { initModels };
+export { initModels, loadedModels, modelData };

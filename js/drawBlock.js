@@ -7,6 +7,7 @@ const ROOM_HEIGHT = config.RoomHeight;
 const ROOM_WIDTH = config.RoomWidth;
 const ROOM_DEPTH = config.RoomDepth;
 
+const blocks = [];
 function initDrawBlock() {
     const textureLoader = new THREE.TextureLoader();
 
@@ -67,6 +68,13 @@ function initDrawBlock() {
     cone.receiveShadow = true;
     cylinder.castShadow = true;
     cylinder.receiveShadow = true;
+
+    // for collision
+    blocks.push(cube, sphere, cone, cylinder);
+    for (let i = 0; i < blocks.length; i++) {
+        blocks[i].BBox = new THREE.Box3();
+        blocks[i].BBox.setFromObject(blocks[i]);
+    }
 }
 
-export {initDrawBlock};
+export {initDrawBlock, blocks};

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { scene } from './scene.js';
 import * as config from './config.json';
 
 const ROOM_HEIGHT = config.RoomHeight;
@@ -20,7 +21,7 @@ function createPainting(imagePath, width, height, position, info) {
 const paintings = []
 
 // add into scene
-function initPaintings(scene) {
+function initPaintings() {
     const artworks = [];
 
     for (let i = 0; i < 6; i++) {
@@ -91,6 +92,10 @@ function initPaintings(scene) {
 
     // for show info section
     paintings.push(painting01, painting03, painting04, painting05, painting06);
+    for (let i = 0; i < paintings.length; i++) {
+        paintings[i].BBox = new THREE.Box3();
+        paintings[i].BBox.setFromObject(paintings[i]);
+    }
 
     // for light
     painting01.castShadow = true;

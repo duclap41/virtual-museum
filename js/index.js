@@ -3,10 +3,10 @@ import { GLTFLoader, PointerLockControls} from 'three-stdlib';
 
 import { scene, camera, renderer } from './scene.js';
 import { initPaintings, displayPaintingInfo, hidePaintingInfo, paintings } from './painting.js';
-import { initModels } from './model.js';
+import { initModels, modelData } from './model.js';
 import { initDrawBlock } from './drawBlock.js';
 import { setupLights } from './light.js';
-import { createRoomSpace, wallGroup} from './room.js';
+import { createRoomSpace} from './room.js';
 import { startExperience, showMenu } from './control.js';
 import { setupAudio } from './audio.js';
 import { updateMovement } from './movement.js';
@@ -16,16 +16,16 @@ let controls = new PointerLockControls(camera, document.body);
 let clock = new THREE.Clock();
 
 // Add paintings to the scene
-initPaintings(scene);
+initPaintings();
 
 // Load models
-initModels(scene);
+initModels();
 
 // Draw blocks
 initDrawBlock();
 
 // Setup lights
-setupLights(scene, paintings);
+setupLights();
 
 // Create room
 createRoomSpace(scene);
@@ -41,8 +41,8 @@ controls.addEventListener('unlock', showMenu);
 
 // Animation loop
 function renderLoop() {
-    updateMovement(clock.getDelta(), camera, controls, wallGroup);
-    const distanceThreshold = 8;
+    updateMovement(clock.getDelta(), controls);
+    const distanceThreshold = 25;
     let paintingToShow = "";
 
     paintings.forEach((paint) => {
@@ -52,9 +52,21 @@ function renderLoop() {
         }
     });
 
+    let modelToShow = -1;
+    for (let i = 0; i < 2; i++) {
+        const distanceToModel = camera.position.distanceTo(modelData[i].position);
+        if (distanceToModel < distanceThreshold) {
+            modelToShow = i;
+        }
+    }
+
     if (paintingToShow) {
         displayPaintingInfo(paintingToShow.userData.info);
-    } else {
+    }
+    else if (modelToShow != -1) {
+        displayPaintingInfo(modelData[modelToShow].info);
+    }
+    else {
         hidePaintingInfo();
     }
 
