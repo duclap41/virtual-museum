@@ -1,0 +1,11 @@
+Model Information:
+* title:	Kitchen Lamps
+* source:	https://sketchfab.com/3d-models/kitchen-lamps-f045e025b5a14a11890eeb857e6b3ca9
+* author:	Nicolai Kilstrup (https://sketchfab.com/nkilstrup)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Kitchen Lamps" (https://sketchfab.com/3d-models/kitchen-lamps-f045e025b5a14a11890eeb857e6b3ca9) by Nicolai Kilstrup (https://sketchfab.com/nkilstrup) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

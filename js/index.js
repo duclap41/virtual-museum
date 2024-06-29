@@ -7,7 +7,7 @@ import { setupLights } from './light.js';
 import { createRoomSpace, wallGroup} from './room.js';
 import { startExperience, showMenu } from './control.js';
 import { setupAudio } from './audio.js';
-import { initStatues } from './model.js';
+import { initModels, loadedModels } from './model.js';
 import { updateMovement } from './movement.js';
 
 // init
@@ -18,7 +18,7 @@ let clock = new THREE.Clock();
 initPaintings(scene);
 
 // Setup lights
-setupLights(scene, paintings);
+setupLights(scene, paintings, loadedModels);
 
 // Create room
 createRoomSpace(scene);
@@ -27,7 +27,7 @@ createRoomSpace(scene);
 setupAudio(camera);
 
 // Load models
-initStatues(scene);
+initModels(scene);
 
 // Start experience button
 const playButton = document.getElementById('play_button');

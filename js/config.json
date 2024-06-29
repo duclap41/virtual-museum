@@ -2,5 +2,6 @@
     "RoomHeight": 80,
     "RoomWidth": 100,
     "RoomDepth":150,
-    "PaintingHeight": 15
+    "PaintingHeight": 17,
+    "BigPaintingHeight": 25
 }

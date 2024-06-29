@@ -1,0 +1,11 @@
+Model Information:
+* title:	Barrier
+* source:	https://sketchfab.com/3d-models/barrier-203120064bb54524a929247c9cc68f7d
+* author:	Inovade (https://sketchfab.com/Inovade)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Barrier" (https://sketchfab.com/3d-models/barrier-203120064bb54524a929247c9cc68f7d) by Inovade (https://sketchfab.com/Inovade) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

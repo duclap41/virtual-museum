@@ -6,8 +6,10 @@ import * as config from './config.json';
 const ROOM_HEIGHT = config.RoomHeight;
 const ROOM_WIDTH = config.RoomWidth;
 const ROOM_DEPTH = config.RoomDepth;
+const PAINTING_HEIGHT = config.PaintingHeight;
 
-function loadStatue(models, scene) {
+let loadedModels = [];
+function loadModel(models, scene) {
     const loader = new GLTFLoader();
     
     models.forEach(modelInfo => {
@@ -37,8 +39,13 @@ function loadStatue(models, scene) {
                         }
                     });
                 }
+                
+                // for light
+                model.receiveShadow = true;
+                model.castShadow = true;
 
                 scene.add(model);
+                loadedModels.add(model);
             },
             // function (xhr) {
             //     console.error(`Error loading GLTF model '${modelInfo.path}':`, xhr);
@@ -47,23 +54,17 @@ function loadStatue(models, scene) {
     });
 }
 
-function initStatues(scene) {
-    const models = [
+function initModels(scene) {
+    const objects = [
         // Statue
-        // { path: 'statue/statue01/scene.gltf',
-        //     position: new THREE.Vector3(-30, 0, 0),
-        //     scale:  new THREE.Vector3(0.2, 0.2, 0.2),
-        //     rotation: new THREE.Euler(0, Math.PI / 2, 0),
-        //     material: new THREE.MeshPhongMaterial({})},
-        // { path: 'statue/statue02/scene.gltf',
-        //     position: new THREE.Vector3(-20, -2, -40),
-        //     scale:new THREE.Vector3(0.25, 0.25, 0.25),
-        //     material: new THREE.MeshPhongMaterial({}) },
-        // { path: 'statue/statue03/scene.gltf',
-        //     position: new THREE.Vector3(30, 0, 0),
-        //     scale:new THREE.Vector3(0.2, 0.2, 0.2),
-        //     rotation: new THREE.Euler(0, -Math.PI / 2, 0),
-        //     material: new THREE.MeshPhongMaterial({}) },
+        { path: 'statue/statue01/scene.gltf',
+            position: new THREE.Vector3(-40, 0, 0),
+            scale:  new THREE.Vector3(0.3, 0.3, 0.3),
+            rotation: new THREE.Euler(0, Math.PI / 2, 0)},
+        { path: 'statue/statue03/scene.gltf',
+            position: new THREE.Vector3(40, 0, 0),
+            scale:new THREE.Vector3(0.3, 0.3, 0.3),
+            rotation: new THREE.Euler(0, -Math.PI / 2, 0)},
         // Door
         { path: 'model/wooden_door/scene.gltf',
             position: new THREE.Vector3(0, 0, ROOM_DEPTH/2),
@@ -81,14 +82,48 @@ function initStatues(scene) {
         { path: 'model/wooden_ceiling_lamp/scene.gltf',
             position: new THREE.Vector3(0, ROOM_HEIGHT-3, -(ROOM_DEPTH/2-30)),
             scale:new THREE.Vector3(20, 10, 20)},
-        // side lamp
+        // wall lamp
         { path: 'model/wall_light/scene.gltf',
-            position: new THREE.Vector3(10, 30, 10),
-            scale:new THREE.Vector3(20, 20, 20)},
+            position: new THREE.Vector3(-9.5, (config.BigPaintingHeight) + 13, -(ROOM_DEPTH/2 - 10)),
+            scale:new THREE.Vector3(50, 40, 30)},
+        { path: 'model/wall_light/scene.gltf',
+            position: new THREE.Vector3(-(ROOM_WIDTH/2-7), PAINTING_HEIGHT + 3, -21.5),
+            scale:new THREE.Vector3(20, 20, 20),
+            rotation: new THREE.Euler(0, Math.PI / 2, 0)},
+        { path: 'model/wall_light/scene.gltf',
+            position: new THREE.Vector3(-(ROOM_WIDTH/2-7), PAINTING_HEIGHT + 3, 34),
+            scale:new THREE.Vector3(20, 20, 20),
+            rotation: new THREE.Euler(0, Math.PI / 2, 0)},
+        { path: 'model/wall_light/scene.gltf',
+            position: new THREE.Vector3((ROOM_WIDTH/2-7), PAINTING_HEIGHT + 3, -29),
+            scale:new THREE.Vector3(20, 20, 20),
+            rotation: new THREE.Euler(0, -Math.PI / 2, 0)},
+        { path: 'model/wall_light/scene.gltf',
+            position: new THREE.Vector3((ROOM_WIDTH/2-7), PAINTING_HEIGHT + 3, 26.5),
+            scale:new THREE.Vector3(20, 20, 20),
+            rotation: new THREE.Euler(0, -Math.PI / 2, 0)},
+        // hanging lamp
+        { path: 'model/hanging_lamp/scene.gltf',
+            position: new THREE.Vector3(40, ROOM_HEIGHT-40, 0),
+            scale:new THREE.Vector3(10, 30, 10),
+            rotation: new THREE.Euler(0, -Math.PI / 2, 0)},
+        { path: 'model/hanging_lamp/scene.gltf',
+            position: new THREE.Vector3(-40, ROOM_HEIGHT-40, 0),
+            scale:new THREE.Vector3(10, 30, 10),
+            rotation: new THREE.Euler(0, -Math.PI / 2, 0)},
+        // barrier
+        { path: 'model/barrier/scene.gltf',
+            position: new THREE.Vector3(ROOM_WIDTH/2 - 20, 0, 0),
+            scale:new THREE.Vector3(10, 10, 10),
+            rotation: new THREE.Euler(0, -Math.PI / 2, 0)},
+        { path: 'model/barrier/scene.gltf',
+            position: new THREE.Vector3(-(ROOM_WIDTH/2 - 20), 0, 0),
+            scale:new THREE.Vector3(10, 10, 10),
+            rotation: new THREE.Euler(0, Math.PI / 2, 0)},
 
     ];
 
-    loadStatue(models, scene);
+    loadModel(objects, scene);
 }
 
-export { initStatues };
+export { initModels, loadedModels };

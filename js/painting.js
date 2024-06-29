@@ -39,21 +39,13 @@ function initPaintings(scene) {
     // on front wall
     const painting01 = createPainting(
         'artworks/1.jpg',
-        20,
-        10,
-        new THREE.Vector3(15, PAINTING_HEIGHT, -ROOM_DEPTH/2),
+        50,
+        30,
+        new THREE.Vector3(0,  config.BigPaintingHeight, -ROOM_DEPTH/2),
         { type: 'painting', info: artworks[0] }
     );
 
-    const painting02 = createPainting(
-        'artworks/2.jpg',
-        20,
-        10,
-        new THREE.Vector3(-15, PAINTING_HEIGHT, -ROOM_DEPTH/2),
-        { type: 'painting', info: artworks[1] }
-    );
-
-    scene.add(painting01, painting02);
+    scene.add(painting01);
     // on left wall
     const painting03 = createPainting(
         'artworks/3.jpg',
@@ -98,13 +90,11 @@ function initPaintings(scene) {
     scene.add(painting05, painting06);
 
     // for show info section
-    paintings.push(painting01, painting02, painting03, painting04, painting05, painting06);
+    paintings.push(painting01, painting03, painting04, painting05, painting06);
 
     // for light
     painting01.castShadow = true;
     painting01.receiveShadow = true;
-    painting02.castShadow = true;
-    painting02.receiveShadow = true;
     painting03.castShadow = true;
     painting03.receiveShadow = true;
     painting04.castShadow = true;
