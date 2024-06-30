@@ -1,16 +1,16 @@
 # Welcome to Virtual 3D Museum
 Please run on Chrome, Safari, Opera, Edge browser!
 
-How to run:
+How to build and run:
 
-Install Node.js
+- Install Node.js
 
-Install dependencies: (2 packages)
+- Install dependencies: (3 packages)
 ```bash
 npm install --save three vite three-stdlib dat.gui
 ```
 
-Run:
+- Run:
 ```bash
 npx vite
 ```
