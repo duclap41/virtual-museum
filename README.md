@@ -14,3 +14,12 @@ npm install --save three vite three-stdlib dat.gui
 ```bash
 npx vite
 ```
+
+# IMAGE DEMO
+Menu:
+
+![Manu Image](./public/img/menu.png)
+
+Main ROOM:
+
+![Main Room Image](./public/img/mainroom.png)
