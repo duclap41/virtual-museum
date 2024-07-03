@@ -28,12 +28,12 @@ document.addEventListener(
         hideMenu();
         controls.lock();
       }
-      if (event.key === "v") {
+      if (event.key === "x") {
         controls.addEventListener('unlock', showMenu);
         controls.unlock();
-        // showMenu();
+        showMenu();
         }
-      if (event.key === "e") {
+      if (event.key === "Control") {
         if (!isLock) {
           controls.addEventListener('unlock', hideMenu);
           controls.unlock();

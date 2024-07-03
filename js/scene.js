@@ -28,11 +28,11 @@ function updateFieldOfView(newFov) {
 }
 const gui = new dat.GUI({name: "Scene roperties"});
 const camera_folder = gui.addFolder("Camera");
-// camera_folder.open();
+camera_folder.open();
 camera_folder.add(cameraSettings, 'fov', 30, 120).onChange((value) => {
     updateFieldOfView(value);
 });
-camera_folder.add(camera.position, "y", 2, 30);
+camera_folder.add(camera.position, "y", 2, 30).name('Height');
 
 // init
 let controls = new PointerLockControls(camera, document.body);

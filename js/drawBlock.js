@@ -65,7 +65,7 @@ function initDrawBlock() {
     const fanBlade1 = new THREE.Mesh(
         new THREE.CylinderGeometry(8, 3, 20, 3, 1, true, -0.35, 1),
         new THREE.MeshLambertMaterial({
-            color: 0xd6d6d2
+            color: 0xfae6d9
         })
     );
     fanBlade1.position.set(-radiusBlade, ROOM_HEIGHT-20, 0);
@@ -75,7 +75,7 @@ function initDrawBlock() {
     const fanBlade2 = new THREE.Mesh(
         new THREE.CylinderGeometry(8, 3, 20, 3, 1, true, -0.35, 1),
         new THREE.MeshLambertMaterial({
-            color: 0xd6d6d2
+            color: 0xfae6d9
         })
     );
     fanBlade2.position.set(radiusBlade, ROOM_HEIGHT-20, 0);
@@ -85,7 +85,7 @@ function initDrawBlock() {
     const fanBlade3 = new THREE.Mesh(
         new THREE.CylinderGeometry(8, 3, 20, 3, 1, true, -0.35, 1),
         new THREE.MeshLambertMaterial({
-            color: 0xd6d6d2
+            color: 0xfae6d9
         })
     );
     fanBlade3.position.set(0, ROOM_HEIGHT-20, radiusBlade);
@@ -94,7 +94,7 @@ function initDrawBlock() {
     const fanBlade4 = new THREE.Mesh(
         new THREE.CylinderGeometry(8, 3, 20, 3, 1, true, -0.35, 1),
         new THREE.MeshLambertMaterial({
-            color: 0xd6d6d2
+            color: 0xfae6d9
         })
     );
     fanBlade4.position.set(0, ROOM_HEIGHT-20, -radiusBlade);
@@ -104,7 +104,7 @@ function initDrawBlock() {
     const fanCircle = new THREE.Mesh(
         new THREE.CircleGeometry(2.3),
         new THREE.MeshLambertMaterial({
-            color: 0xd6d6d2
+            color: 0xfae6d9
         })
     )
     fanCircle.position.set(0, ROOM_HEIGHT-22, 0);
@@ -137,7 +137,7 @@ function initDrawBlock() {
 }
 
 function fanAnimation() {
-    ceilingFan.rotation.y -= 0.1;
+    ceilingFan.rotation.y -= 0.04;
 }
 
 export {initDrawBlock, blocks, fanAnimation};

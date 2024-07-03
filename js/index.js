@@ -34,7 +34,7 @@ clickHandling();
 function renderLoop() {
     updateMovement(clock.getDelta());
     fanAnimation();
-    const distanceThreshold = 25;
+    const distanceThreshold = 22;
     let paintingToShow = "";
 
     paintings.forEach((paint) => {
