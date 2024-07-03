@@ -1,7 +1,7 @@
 import { scene, camera, renderer, controls, clock } from './scene.js';
 import { initPaintings, displayPaintingInfo, hidePaintingInfo, paintings } from './painting.js';
 import { initModels, modelData } from './model.js';
-import { initDrawBlock } from './drawBlock.js';
+import { initDrawBlock, fanAnimation } from './drawBlock.js';
 import { setupLights } from './light.js';
 import { createRoomSpace} from './room.js';
 import { startExperience, showMenu } from './control.js';
@@ -33,6 +33,7 @@ clickHandling();
 // Animation loop
 function renderLoop() {
     updateMovement(clock.getDelta());
+    fanAnimation();
     const distanceThreshold = 25;
     let paintingToShow = "";
 

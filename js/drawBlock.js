@@ -8,6 +8,8 @@ const ROOM_WIDTH = config.RoomWidth;
 const ROOM_DEPTH = config.RoomDepth;
 
 const blocks = [];
+const ceilingFan = new THREE.Group();
+
 function initDrawBlock() {
     const textureLoader = new THREE.TextureLoader();
 
@@ -17,7 +19,7 @@ function initDrawBlock() {
         new THREE.MeshLambertMaterial({
             map: textureLoader.load("img/rock01.jpg"),
         })
-    )
+    );
     cube.position.set(ROOM_WIDTH/2-10, 10/2 , (ROOM_DEPTH/2 - 10));
     scene.add(cube);
     blocks.push(cube);
@@ -28,7 +30,7 @@ function initDrawBlock() {
         new THREE.MeshLambertMaterial({
             map: textureLoader.load("img/rock02.jpg")
         })
-    )
+    );
     sphere.position.set(ROOM_WIDTH/2-10, 7 , -(ROOM_DEPTH/2 - 10));
     scene.add(sphere);
     blocks.push(sphere);
@@ -39,7 +41,7 @@ function initDrawBlock() {
         new THREE.MeshLambertMaterial({
             map: textureLoader.load("img/rock03.jpg")
         })
-    )
+    );
     cone.position.set(-(ROOM_WIDTH/2-10), 10/2 , -(ROOM_DEPTH/2 - 10));
     cone.rotateX(Math.PI);
     scene.add(cone);
@@ -51,11 +53,65 @@ function initDrawBlock() {
         new THREE.MeshLambertMaterial({
             map: textureLoader.load("img/rock04.jpg")
         })
-    )
+    );
     cylinder.position.set(-(ROOM_WIDTH/2-10), 10/2 , (ROOM_DEPTH/2 - 10));
     cylinder.rotateX(Math.PI);
     scene.add(cylinder);
     blocks.push(cylinder);
+
+    // ceiling fan
+    const radiusBlade = 13;
+        // blade 01
+    const fanBlade1 = new THREE.Mesh(
+        new THREE.CylinderGeometry(8, 3, 20, 3, 1, true, -0.35, 1),
+        new THREE.MeshLambertMaterial({
+            color: 0xd6d6d2
+        })
+    );
+    fanBlade1.position.set(-radiusBlade, ROOM_HEIGHT-20, 0);
+    fanBlade1.rotateX(Math.PI/2);
+    fanBlade1.rotateZ(Math.PI/2);
+    // blade 02
+    const fanBlade2 = new THREE.Mesh(
+        new THREE.CylinderGeometry(8, 3, 20, 3, 1, true, -0.35, 1),
+        new THREE.MeshLambertMaterial({
+            color: 0xd6d6d2
+        })
+    );
+    fanBlade2.position.set(radiusBlade, ROOM_HEIGHT-20, 0);
+    fanBlade2.rotateX(Math.PI/2);
+    fanBlade2.rotateZ(-Math.PI/2);
+        // blade 03
+    const fanBlade3 = new THREE.Mesh(
+        new THREE.CylinderGeometry(8, 3, 20, 3, 1, true, -0.35, 1),
+        new THREE.MeshLambertMaterial({
+            color: 0xd6d6d2
+        })
+    );
+    fanBlade3.position.set(0, ROOM_HEIGHT-20, radiusBlade);
+    fanBlade3.rotateX(Math.PI/2);
+        // blade 04
+    const fanBlade4 = new THREE.Mesh(
+        new THREE.CylinderGeometry(8, 3, 20, 3, 1, true, -0.35, 1),
+        new THREE.MeshLambertMaterial({
+            color: 0xd6d6d2
+        })
+    );
+    fanBlade4.position.set(0, ROOM_HEIGHT-20, -radiusBlade);
+    fanBlade4.rotateX(Math.PI/2);
+    fanBlade4.rotateZ(Math.PI);
+        // middle
+    const fanCircle = new THREE.Mesh(
+        new THREE.CircleGeometry(2.3),
+        new THREE.MeshLambertMaterial({
+            color: 0xd6d6d2
+        })
+    )
+    fanCircle.position.set(0, ROOM_HEIGHT-22, 0);
+    fanCircle.rotateX(Math.PI/2);
+
+    ceilingFan.add(fanBlade1, fanBlade2, fanBlade3, fanBlade4, fanCircle);
+    scene.add(ceilingFan);
 
     // splot light
     createSpotlight(cube.position.x, ROOM_HEIGHT-30, cube.position.z, 200, 10, 120, 1, cube.position);
@@ -80,4 +136,8 @@ function initDrawBlock() {
     }
 }
 
-export {initDrawBlock, blocks};
+function fanAnimation() {
+    ceilingFan.rotation.y -= 0.1;
+}
+
+export {initDrawBlock, blocks, fanAnimation};
