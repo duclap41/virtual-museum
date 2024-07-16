@@ -4,6 +4,7 @@ import * as sketchfab from "https://static.sketchfab.com/api/sketchfab-viewer-1.
 import { createSpotlight } from './light.js';
 import { scene } from './scene.js';
 import * as config from './config.json';
+import * as info from './artifactInfo.json';
 
 const ROOM_HEIGHT = config.RoomHeight;
 const ROOM_WIDTH = config.RoomWidth;
@@ -68,25 +69,11 @@ function loadModel(models) {
 const modelData = [
     {
         position: new THREE.Vector3(-40, 0, 0),
-        info: {
-            title: `Statue 1`,
-            artist: 'Vincent van Gogh',
-            description: `This is one of the masterpieces by Vincent van Gogh, showcasing his unique style and emotional honesty. Artwork ${
-                1
-            } perfectly encapsulates his love for the beauty of everyday life.`,
-            year: `Year 1`,
-        }
+        info: info.statue.statue01
     },
     {
         position: new THREE.Vector3(40, 0, 0),
-        info: {
-            title: `Statue 2`,
-            artist: 'Vincent van Gogh',
-            description: `This is one of the masterpieces by Vincent van Gogh, showcasing his unique style and emotional honesty. Artwork ${
-                2
-            } perfectly encapsulates his love for the beauty of everyday life.`,
-            year: `Year 2`,
-        }
+        info: info.statue.statue02
     }
 ]
 

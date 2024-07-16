@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { scene } from './scene.js';
 import * as dat from 'dat.gui';
 import * as config from './config.json';
+import * as info from './artifactInfo.json';
 
 const ROOM_HEIGHT = config.RoomHeight;
 const ROOM_WIDTH = config.RoomWidth;
@@ -20,31 +21,17 @@ function createPainting(imagePath, width, height, position, info) {
 }
 
 const paintings = []
+const artworkInfo = info.paintingInfo;
 
 // add into scene
 function initPaintings() {
-    const artworks = [];
-
-    for (let i = 0; i < 6; i++) {
-        const info = {
-            title: `Van Gogh ${i + 1}`,
-            artist: 'Vincent van Gogh',
-            description: `This is one of the masterpieces by Vincent van Gogh, showcasing his unique style and emotional honesty. Artwork ${
-                i + 1
-            } perfectly encapsulates his love for the beauty of everyday life.`,
-            year: `Year ${i + 1}`,
-        };
-
-        artworks.push(info);
-    }
-
     // on front wall
     const painting01 = createPainting(
         'artworks/1.jpg',
         50,
         30,
         new THREE.Vector3(0,  config.BigPaintingHeight, -ROOM_DEPTH/2),
-        { type: 'painting', info: artworks[0] }
+        { type: 'painting', info: artworkInfo.painting01 }
     );
 
     scene.add(painting01);
@@ -54,7 +41,7 @@ function initPaintings() {
         20,
         10,
         new THREE.Vector3(-ROOM_WIDTH/2, PAINTING_HEIGHT, -25),
-        { type: 'painting', info: artworks[2] }
+        { type: 'painting', info: artworkInfo.painting02 }
     );
 
     painting03.rotateY(Math.PI / 2);
@@ -64,7 +51,7 @@ function initPaintings() {
         20,
         10,
         new THREE.Vector3(-ROOM_WIDTH/2, PAINTING_HEIGHT, 30),
-        { type: 'painting', info: artworks[3] }
+        { type: 'painting', info: artworkInfo.painting03 }
     );
 
     painting04.rotateY(Math.PI / 2);
@@ -75,7 +62,7 @@ function initPaintings() {
         20,
         10,
         new THREE.Vector3(ROOM_WIDTH/2, PAINTING_HEIGHT, -25),
-        { type: 'painting', info: artworks[4] }
+        { type: 'painting', info: artworkInfo.painting04 }
     );
 
     painting05.rotateY(-Math.PI / 2);
@@ -85,7 +72,7 @@ function initPaintings() {
         20,
         10,
         new THREE.Vector3(ROOM_WIDTH/2, PAINTING_HEIGHT, 30),
-        { type: 'painting', info: artworks[5] }
+        { type: 'painting', info: artworkInfo.painting05 }
     );
 
     painting06.rotateY(-Math.PI / 2);

@@ -1,8 +1,48 @@
 {
     "paintingInfo": {
-        "painting01": 2
+        "painting01": {
+            "title": "The Starry Night",
+            "artist": "Vincent van Gogh",
+            "description": "Depicts a night sky filled with swirling stars above a quiet village. The contrast between the bright stars and the dark sky creates a sense of both tranquility and dynamic movement, reflecting van Gogh's emotional intensity and unique style",
+            "year": 1889
+        },
+        "painting02": {
+            "title": "Sunflowers",
+            "artist": "Vincent van Gogh",
+            "description": "A series of paintings showcasing sunflowers in various stages of life, painted in vibrant yellows. These works symbolize van Gogh's admiration for nature and his ability to convey emotion through color",
+            "year": 1888
+        },
+        "painting03": {
+            "title": "Cafe Terrace at Night",
+            "artist": "Vincent van Gogh",
+            "description": "Illustrates a cozy café under a starlit sky in Arles, France. The warm glow from the café contrasts with the deep blue of the night sky, creating a welcoming and romantic atmosphere",
+            "year": 1888
+        },
+        "painting04": {
+            "title": "Bedroom in Arles",
+            "artist": "Vincent van Gogh",
+            "description": "Depicting van Gogh's bedroom in Arles, this painting uses bold colors and simple lines to convey a sense of calm and intimacy. The vibrant hues of the furniture and walls reflect van Gogh's unique approach to color",
+            "year": 1888
+        },
+        "painting05": {
+            "title": "Wheatfield with Crows",
+            "artist": "Vincent van Gogh",
+            "description": "Portrays a foreboding wheat field under a stormy sky, with crows flying above. The stark contrast between the golden wheat and dark sky evokes a sense of unease and tension, often seen as a reflection of van Gogh's troubled state of mind",
+            "year": 1890
+        }
     },
     "statue": {
-
+        "statue01": {
+            "title": "Venus Callipyge",
+            "artist": "Unknown",
+            "description": "The sculpture depicts a partially draped woman revealing her hips and buttocks, looking back over her shoulder, possibly Venus (Aphrodite) or a mortal woman.",
+            "year": "1st or 2nd century BC"
+        },
+        "statue02": {
+            "title": "Trajan Cuirass",
+            "artist": "Unknown",
+            "description": "The statue of Emperor Trajan in ceremonial armor depicts him standing confidently, as if addressing his troops. It highlights his military leadership and esteemed status in Roman history.",
+            "year": "After 103 CE"
+        }
     }
 }
